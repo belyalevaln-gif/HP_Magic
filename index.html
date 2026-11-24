@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вечер распределения — Хогвартс</title>
+<style>
+@font-face{
+  font-family:'HarryPotter';
+  src:url('./Harry Potter.ttf') format('truetype');
+  font-display:swap;
+}
+:root{
+  --gold:#d3a625;--gold2:#f0c75e;--ink:#17130f;--paper:#fbf4e2;--parch:#f4e7c3;
+  --gryf:#7f0909;--slyt:#1a472a;--rave:#0e1a40;--huff:#b8860b;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  font-family:Georgia,'Times New Roman',serif;color:var(--ink);
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(211,166,37,.18), transparent 60%),
+    linear-gradient(180deg,#0b0d16 0%,#11162a 45%,#0b0d16 100%);
+  background-attachment:fixed;
+  padding:18px 12px 40px;
+}
+.wrap{max-width:900px;margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;color:#e9dcb6;font-size:13px}
+.brand{display:flex;align-items:center;gap:10px;opacity:.9}
+.brand img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 2px 4px #000)}
+h1{
+  font-family:'HarryPotter',Georgia,serif;font-weight:400;
+  font-size:clamp(26px,6vw,46px);line-height:1.05;text-align:center;margin:8px 0 6px;
+  color:var(--gold2);text-shadow:0 2px 0 #4a2f00,0 0 18px rgba(240,199,94,.25);
+  letter-spacing:.5px;
+}
+.sub{text-align:center;color:#cfc19a;margin:0 0 18px;font-size:15px}
+.card{
+  background:linear-gradient(180deg,var(--paper),#f6ecd2);
+  border:2px solid #b08a2e;border-radius:18px;box-shadow:var(--shadow);
+  padding:18px 16px;position:relative;overflow:hidden;
+}
+.card:before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(600px 200px at 50% -20%,rgba(211,166,37,.18),transparent 70%)}
+.hero{display:grid;grid-template-columns:1fr;gap:10px;align-items:center;margin-bottom:12px}
+.hero img.castle{width:100%;border-radius:14px;border:2px solid #9c7a26;display:block;max-height:340px;object-fit:cover;background:#0b0d16}
+.hat-row{display:flex;align-items:center;gap:14px;margin:6px 0 2px}
+.hat-row img{width:88px;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.hat-row p{margin:0;font-size:15px;color:#4a3a1c}
+.progress{height:8px;background:#d9c794;border-radius:99px;overflow:hidden;border:1px solid #b99b4d;margin:14px 0 4px}
+.progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#b08a2e,#e9c25a);transition:width .35s ease}
+.qmeta{font-size:13px;color:#6b5626;margin:8px 0 0;text-align:right}
+.story{font-size:clamp(17px,3.6vw,20px);line-height:1.45;margin:8px 0 16px;color:#241c0f}
+.answers{display:grid;grid-template-columns:1fr;gap:10px}
+.answer{
+  text-align:left;font:inherit;font-size:clamp(15px,3.4vw,17px);line-height:1.35;
+  background:linear-gradient(180deg,#fffdf6,#f3e7c8);
+  border:2px solid #b99b4d;border-radius:14px;padding:13px 14px;cursor:pointer;
+  color:#221a0d;box-shadow:0 3px 0 #c9ae68, 0 6px 14px rgba(0,0,0,.12);
+  transition:transform .08s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.answer:hover{border-color:#8d6c1f;box-shadow:0 3px 0 #b08a2e,0 10px 18px rgba(0,0,0,.18)}
+.answer:active{transform:translateY(2px);box-shadow:0 1px 0 #b08a2e}
+.answer:disabled{opacity:.6;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.btn{
+  font:inherit;font-size:16px;border-radius:12px;padding:12px 18px;cursor:pointer;
+  border:2px solid #8d6c1f;background:linear-gradient(180deg,#f7d97a,#d9ab35);color:#2a1d00;
+  box-shadow:0 4px 0 #8d6c1f,0 8px 16px rgba(0,0,0,.2);font-weight:700;
+}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #8d6c1f}
+.final{text-align:center}
+.final .crest{width:min(240px,70vw);height:auto;margin:6px auto 6px;display:block;filter:drop-shadow(0 10px 18px rgba(0,0,0,.35))}
+.final h2{font-family:'HarryPotter',Georgia,serif;font-weight:400;font-size:clamp(26px,6vw,42px);margin:6px 0 2px}
+.final .houseName{font-size:clamp(22px,5vw,34px);font-weight:700;letter-spacing:1px;margin:0 0 10px}
+.final .speech{background:rgba(255,255,255,.55);border:2px dashed #b08a2e;border-radius:14px;padding:14px;text-align:left;font-size:16px;line-height:1.5;color:#2a2010}
+.final .speech b{color:#5a3f00}
+.about{margin-top:18px;color:#cfc19a;font-size:13px;line-height:1.55}
+.about a{color:#f0c75e}
+.about .crests{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+.about .crests img{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 2px 4px #000)}
+.hidden{display:none!important}
+.note{font-size:12px;color:#7a6431;margin-top:10px;text-align:center}
+@media (max-width:420px){
+  .card{padding:14px 12px;border-radius:14px}
+  .answer{padding:12px}
+  .brand{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><img id="miniHat" alt="Шляпа"><span>Хогвартс • Вечер распределения</span></div>
+    <div style="opacity:.75">5 историй • 1 вопрос Шляпы</div>
+  </div>
+
+  <h1>Вечер распределения</h1>
+  <p class="sub">Надень Распределяющую шляпу и узнай свой факультет</p>
+
+  <div class="card" id="introCard">
+    <div class="hero"><img class="castle" id="castleImg" alt="Замок Хогвартс"></div>
+    <div class="hat-row">
+      <img id="hatImg" alt="Распределяющая шляпа">
+      <p>Шляпа уже на твоей голове. Она задаст пять коротких вопросов о маленьких приключениях в школе магии — и скажет, какой факультет тебе ближе.</p>
+    </div>
+    <div class="row"><button class="btn" id="startBtn">Начать распределение</button></div>
+    <p class="note">Игра для одного игрока. Знание книг не нужно.</p>
+  </div>
+
+  <div class="card hidden" id="gameCard">
+    <div class="progress"><i id="bar"></i></div>
+    <div class="qmeta" id="qmeta">Вопрос 1 из 5</div>
+    <div class="story" id="story"></div>
+    <div class="answers" id="answers"></div>
+    <div class="row" id="nextRow" style="display:none"><button class="btn" id="nextBtn">Дальше</button></div>
+  </div>
+
+  <div class="card hidden" id="finalCard">
+    <div class="final">
+      <img class="crest" id="finalCrest" alt="Герб факультета">
+      <h2>Шляпа выбрала…</h2>
+      <p class="houseName" id="houseName"></p>
+      <div class="speech" id="speech"></div>
+      <div class="row"><button class="btn" id="againBtn">Пройти заново</button></div>
+    </div>
+  </div>
+
+  <div class="about">
+    <strong style="color:#e9dcb6">Об игре</strong><br>
+    Характеры факультетов опираются на официальные описания HarryPotter.com: смелость Гриффиндора, любознательность Когтеврана, забота и верность Пуффендуя, находчивость и целеустремлённость Слизерина. Источники:
+    <a href="https://www.harrypotter.com/fact-file/hogwarts-houses/gryffindor" target="_blank" rel="noopener">Gryffindor</a>,
+    <a href="https://www.harrypotter.com/fact-file/hogwarts-houses/hufflepuff" target="_blank" rel="noopener">Hufflepuff</a>,
+    <a href="https://www.harrypotter.com/fact-file/hogwarts-houses/ravenclaw" target="_blank" rel="noopener">Ravenclaw</a>,
+    <a href="https://www.harrypotter.com/fact-file/hogwarts-houses/slytherin" target="_blank" rel="noopener">Slytherin</a>.
+    <div class="crests" id="aboutCrests"></div>
+    <p style="margin:10px 0 0">Изображения: замок, Шляпа и гербы факультетов — из приложенных к заданию материалов. Регистрация не нужна.</p>
+  </div>
+</div>
+
+<script>
+/* ===== ИМЕНА ФАЙЛОВ РЯДОМ С index.html =====
+   Поменяйте строки ниже, если ваши файлы называются иначе. */
+const FILES = {
+  castle:      "./castle.jpg",
+  hat:         "./hat.jpg",
+  gryffindor:  "./gryffindor.jpg",
+  slytherin:   "./slytherin.jpg",
+  ravenclaw:   "./ravenclaw.jpg",
+  hufflepuff:  "./hufflepuff.jpg"
+};
+
+/* Заглушки на случай, если файл не найден */
+const FALLBACK = {
+  castle: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='420'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#1b2440'/><stop offset='1' stop-color='#070a12'/></linearGradient></defs><rect width='800' height='420' fill='url(#g)'/><circle cx='660' cy='90' r='46' fill='#f4e7c3' opacity='.85'/><path d='M0 360 L120 250 L210 300 L300 210 L420 290 L520 190 L640 270 L800 200 L800 420 L0 420 Z' fill='#0d1322'/><g fill='#f0c75e' opacity='.8'><rect x='320' y='250' width='8' height='16'/><rect x='340' y='230' width='8' height='16'/><rect x='360' y='260' width='8' height='16'/><rect x='520' y='210' width='8' height='16'/><rect x='540' y='240' width='8' height='16'/></g></svg>`),
+  hat: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><path d='M60 250 C40 200 90 170 110 120 C130 70 170 40 210 50 C240 58 230 100 200 120 C170 140 190 180 230 200 L250 250 Z' fill='#5b4326'/><ellipse cx='150' cy='255' rx='120' ry='22' fill='#3f2d18'/></svg>`),
+  gryffindor: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><rect width='240' height='240' fill='#7f0909'/><path d='M120 40 L180 70 L180 140 C180 180 150 205 120 215 C90 205 60 180 60 140 L60 70 Z' fill='#d3a625' stroke='#f0c75e' stroke-width='6'/><text x='120' y='150' font-size='64' text-anchor='middle' fill='#7f0909' font-family='serif'>Г</text></svg>`),
+  slytherin: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><rect width='240' height='240' fill='#1a472a'/><path d='M120 40 L180 70 L180 140 C180 180 150 205 120 215 C90 205 60 180 60 140 L60 70 Z' fill='#c0c0c0' stroke='#e8e8e8' stroke-width='6'/><text x='120' y='150' font-size='64' text-anchor='middle' fill='#1a472a' font-family='serif'>С</text></svg>`),
+  ravenclaw: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><rect width='240' height='240' fill='#0e1a40'/><path d='M120 40 L180 70 L180 140 C180 180 150 205 120 215 C90 205 60 180 60 140 L60 70 Z' fill='#946b2d' stroke='#d3a625' stroke-width='6'/><text x='120' y='150' font-size='64' text-anchor='middle' fill='#0e1a40' font-family='serif'>К</text></svg>`),
+  hufflepuff: "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><rect width='240' height='240' fill='#ecb939'/><path d='M120 40 L180 70 L180 140 C180 180 150 205 120 215 C90 205 60 180 60 140 L60 70 Z' fill='#3b3b3b' stroke='#111' stroke-width='6'/><text x='120' y='150' font-size='64' text-anchor='middle' fill='#ecb939' font-family='serif'>П</text></svg>`)
+};
+
+const HOUSES = {
+  gryffindor: {name:"Гриффиндор", img:"gryffindor", color:"#7f0909", quality:"смелость"},
+  slytherin:  {name:"Слизерин",   img:"slytherin",  color:"#1a472a", quality:"находчивость и целеустремлённость"},
+  ravenclaw:  {name:"Когтевран",  img:"ravenclaw",  color:"#0e1a40", quality:"любознательность"},
+  hufflepuff: {name:"Пуффендуй",  img:"hufflepuff", color:"#b8860b", quality:"забота и верность"}
+};
+
+const QUESTIONS = [
+  {
+    story: "В школьном спектакле дракон должен грозно рычать, но у него получается только тонкий писк. Зрители уже начали перешёптываться. Как помочь спектаклю?",
+    answers: [
+      {t:"Выйти на сцену и громко поддержать дракона, чтобы он осмелел и зарычал.", h:"gryffindor", why:"ты не побоялся выйти вперёд и поддержать друга"},
+      {t:"Быстро придумать, как спрятать писк за музыкой и спецэффектами.", h:"slytherin", why:"ты быстро нашёл хитрый способ спасти сцену"},
+      {t:"Внимательно послушать, почему дракон пищит, и найти причину.", h:"ravenclaw", why:"ты захотел разобраться, как всё устроено"},
+      {t:"Подбодрить дракона и остаться рядом, чтобы он не волновался.", h:"hufflepuff", why:"ты позаботился о том, кому сейчас трудно"}
+    ]
+  },
+  {
+    story: "На перемене ты находишь в коридоре незнакомую дверь, за которой слышны странные звуки. Никто не знает, что там. Что сделаешь?",
+    answers: [
+      {t:"Осторожно приоткрою дверь и загляну — вдруг там кто-то ждёт помощи.", h:"gryffindor", why:"ты готов заглянуть в неизвестность, чтобы помочь"},
+      {t:"Позову друзей и вместе придумаю, как исследовать комнату безопасно.", h:"slytherin", why:"ты умеешь собрать команду и найти подход к делу"},
+      {t:"Сначала поищу подсказки: карту, записи, следы — чтобы понять, что это.", h:"ravenclaw", why:"ты любишь доходить до сути"},
+      {t:"Сбегаю за учителем и предупрежу, чтобы никто не пострадал.", h:"hufflepuff", why:"ты думаешь о безопасности и заботе о других"}
+    ]
+  },
+  {
+    story: "Твой друг потерял любимый блокнот с рисунками. Он очень расстроен, а до урока осталось десять минут. Как поступишь?",
+    answers: [
+      {t:"Предложу другу смело пойти к директору и попросить объявление о пропаже.", h:"gryffindor", why:"ты не боишься попросить о помощи, когда это важно"},
+      {t:"Быстро составлю план: где искать, кого спросить, кто чем займётся.", h:"slytherin", why:"ты умеешь организовать поиск и довести дело до конца"},
+      {t:"Попробую вспомнить, где блокнот видели в последний раз, и восстановить путь.", h:"ravenclaw", why:"ты любишь логику и внимательные наблюдения"},
+      {t:"Останусь рядом с другом и помогу искать, даже если опоздаю на урок.", h:"hufflepuff", why:"ты верен другу и не бросаешь его в беде"}
+    ]
+  },
+  {
+    story: "В библиотеке ты видишь, как старшеклассник пытается поставить на место тяжёлую стопку книг, и она вот-вот упадёт. Что сделаешь?",
+    answers: [
+      {t:"Брошусь помочь удержать стопку, даже если книги тяжёлые.", h:"gryffindor", why:"ты смело берёшься за трудное дело"},
+      {t:"Предложу решение: разложить книги по одной и позвать ещё помощников.", h:"slytherin", why:"ты находчиво находишь практичный выход"},
+      {t:"Замечу, как удобнее расставить книги, чтобы они не падали снова.", h:"ravenclaw", why:"ты замечаешь детали и любишь порядок"},
+      {t:"Тихо подойду и помогу, не привлекая лишнего внимания.", h:"hufflepuff", why:"ты помогаешь из доброты, а не ради похвалы"}
+    ]
+  },
+  {
+    story: "На школьном турнире ты можешь выбрать испытание. Какое выберешь?",
+    answers: [
+      {t:"Полосу препятствий, где нужно прыгать, лазить и не сдаваться.", h:"gryffindor", why:"ты любишь смелые испытания и не боишься трудностей"},
+      {t:"Квест, где нужно перехитрить соперников и прийти к цели первым.", h:"slytherin", why:"ты целеустремлён и любишь побеждать умом"},
+      {t:"Викторину с загадками и вопросами на смекалку.", h:"ravenclaw", why:"ты любишь узнавать новое и решать головоломки"},
+      {t:"Командную эстафету, где важно поддержать каждого участника.", h:"hufflepuff", why:"ты ценишь дружбу и заботу о команде"}
+    ]
+  }
+];
+
+const TIEBREAK = {
+  gryffindor: {story:"Шляпа уточняет: на школьном дворе кто-то застрял на высоком дереве. Что ты сделаешь?", answers:[
+    {t:"Полезу наверх и помогу спуститься, даже если страшно.", h:"gryffindor", why:"ты смело идёшь на помощь, несмотря на страх"}
+  ]},
+  slytherin: {story:"Шляпа уточняет: до закрытия школьного магазина пять минут, а тебе нужен подарок другу. Как поступишь?", answers:[
+    {t:"Быстро придумаю, как успеть, и найду необычный подарок.", h:"slytherin", why:"ты находчив и умеешь добиваться цели"}
+  ]},
+  ravenclaw: {story:"Шляпа уточняет: в книге незнакомое слово. Что сделаешь?", answers:[
+    {t:"Найду его значение и попробую понять, почему оно здесь.", h:"ravenclaw", why:"ты любознателен и хочешь докопаться до сути"}
+  ]},
+  hufflepuff: {story:"Шляпа уточняет: новый ученик сидит один в столовой. Что сделаешь?", answers:[
+    {t:"Подсяду к нему и познакомлюсь, чтобы он не чувствовал себя одиноко.", h:"hufflepuff", why:"ты заботлив и верен тем, кому нужна поддержка"}
+  ]}
+};
+
+const state = {qIndex:0, scores:{gryffindor:0,slytherin:0,ravenclaw:0,hufflepuff:0}, history:[], tieQueue:[], tieIndex:0, tie:false, finished:false};
+
+const $ = id => document.getElementById(id);
+const introCard=$("introCard"), gameCard=$("gameCard"), finalCard=$("finalCard");
+const storyEl=$("story"), answersEl=$("answers"), qmeta=$("qmeta"), bar=$("bar"), nextRow=$("nextRow");
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function reset(){
+  state.qIndex=0; state.scores={gryffindor:0,slytherin:0,ravenclaw:0,hufflepuff:0}; state.history=[];
+  state.tieQueue=[]; state.tieIndex=0; state.tie=false; state.finished=false;
+}
+function show(el){[introCard,gameCard,finalCard].forEach(c=>c.classList.add("hidden"));el.classList.remove("hidden");}
+function currentQuestion(){
+  if(state.tie){ const h=state.tieQueue[state.tieIndex]; const q=TIEBREAK[h]; return {story:q.story, answers:q.answers, tie:true}; }
+  return QUESTIONS[state.qIndex];
+}
+function renderQuestion(){
+  const q=currentQuestion();
+  storyEl.textContent=q.story;
+  const total = state.tie ? state.tieQueue.length : QUESTIONS.length;
+  const num = state.tie ? state.tieIndex+1 : state.qIndex+1;
+  qmeta.textContent = state.tie ? `Дополнительный вопрос ${num} из ${total}` : `Вопрос ${num} из ${total}`;
+  bar.style.width = state.tie ? `${(state.tieIndex/total)*100}%` : `${(state.qIndex/total)*100}%`;
+  nextRow.style.display="none";
+  answersEl.innerHTML="";
+  shuffle(q.answers).forEach(a=>{
+    const b=document.createElement("button");
+    b.className="answer"; b.type="button"; b.textContent=a.t;
+    b.addEventListener("click",()=>choose(a,b),{once:true});
+    answersEl.appendChild(b);
+  });
+}
+function choose(a,btn){
+  Array.from(answersEl.children).forEach(x=>x.disabled=true);
+  btn.style.borderColor="#5a3f00";
+  state.scores[a.h]++;
+  state.history.push({story:currentQuestion().story, answer:a.t, house:a.h, why:a.why});
+  if(state.tie){
+    state.tieIndex++;
+    if(state.tieIndex < state.tieQueue.length){ setTimeout(renderQuestion,220); }
+    else { setTimeout(finish,220); }
+  } else {
+    state.qIndex++;
+    if(state.qIndex < QUESTIONS.length){ setTimeout(renderQuestion,220); }
+    else { setTimeout(afterMain,220); }
+  }
+}
+function maxScore(){ return Math.max(...Object.values(state.scores)); }
+function leaders(){ const m=maxScore(); return Object.keys(state.scores).filter(h=>state.scores[h]===m); }
+
+function afterMain(){
+  const top=leaders();
+  if(top.length===1){ finish(); return; }
+  state.tie=true; state.tieQueue=shuffle(top); state.tieIndex=0;
+  renderQuestion();
+}
+function finish(){
+  state.finished=true;
+  const top=leaders();
+  const house=top[0];
+  const info=HOUSES[house];
+  const crest = $("finalCrest");
+  crest.src = FILES[info.img] || FALLBACK[info.img];
+  crest.onerror = ()=>{ crest.onerror=null; crest.src = FALLBACK[info.img]; };
+  crest.alt="Герб: "+info.name;
+  $("houseName").textContent=info.name;
+  $("houseName").style.color=info.color;
+
+  const hit=[...state.history].reverse().find(x=>x.house===house);
+  const answerText = hit ? hit.answer : "ты прошёл все истории и не сдался";
+  const why = hit ? hit.why : "ты уверенно прошёл испытание";
+  const quality = info.quality;
+
+  $("speech").innerHTML = `
+    <p>«Хм… — задумчиво произносит Шляпа. — Я вижу <b>${quality}</b>. Особенно мне запомнилось, как ты ответил: <i>«${escapeHtml(answerText)}»</i>. В этом ответе видно, что ${why}.</p>
+    <p>Поэтому я отправляю тебя в <b style="color:${info.color}">${info.name}</b>!»</p>
+  `;
+  bar.style.width="100%";
+  show(finalCard);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+
+$("startBtn").addEventListener("click",()=>{
+  reset(); show(gameCard); renderQuestion(); window.scrollTo({top:0,behavior:"smooth"});
+});
+$("againBtn").addEventListener("click",()=>{
+  reset(); show(introCard); window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* Подстановка картинок с запасным вариантом */
+function bindImg(el, key){
+  el.onerror = ()=>{ el.onerror=null; el.src = FALLBACK[key]; };
+  el.src = FILES[key] || FALLBACK[key];
+}
+bindImg($("castleImg"),"castle");
+bindImg($("hatImg"),"hat");
+bindImg($("miniHat"),"hat");
+["gryffindor","slytherin","ravenclaw","hufflepuff"].forEach(k=>{
+  const im=document.createElement("img"); im.alt=HOUSES[k].name; bindImg(im,k); $("aboutCrests").appendChild(im);
+});
+</script>
+</body>
+</html>
